@@ -35,8 +35,8 @@ jobs:
         SRCCLR_SCM_URL: https://github.com/$GITHUB_REPOSITORY
         VERACODE_API_KEY_ID: ${{ secrets.VERACODE_API_ID}}
         VERACODE_API_KEY_SECRET: ${{ secrets.VERACODE_API_KEY }}
-        EXTRA_ARGS: '--update-advisor --pull-request --unmatched --appname="${{ github.event.repository.name }}"'
+        EXTRA_ARGS: '--update-advisor --pull-request --unmatched'
       run: |
         git config --global user.email "${{ secrets.USER_EMAIL }}"
         git config --global user.name "${{ secrets.USER_NAME }}"
-        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan $EXTRA_ARGS
+        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --appname=${{ github.event.repository.name }} $EXTRA_ARGS
